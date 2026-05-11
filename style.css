@@ -300,7 +300,7 @@ a{color:inherit}
 .footer-right{display:flex;align-items:center;gap:1rem}
 .footer-nav,.socials{display:flex;gap:.7rem;flex-wrap:wrap}
 .footer-nav a,.socials a{text-decoration:none;color:#d7e6ff;font-weight:600}
-.footer-nav a:hover,.socials a:hover{color:#fff}
+.footer-nav a:hover,.socials a:hover{color:var(--text)}
 
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .72s ease, transform .72s ease}
 .reveal.show{opacity:1;transform:none}

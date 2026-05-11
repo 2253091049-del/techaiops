@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const particlesRoot = document.querySelector('.hero-particles');
   if (particlesRoot && !prefersReducedMotion) {
     const particleCount = window.matchMedia(`(max-width: ${tabletBreakpoint}px)`).matches ? 16 : 24;
-    for (let i = 0; i < particleCount; i += 1) {
+    for (let i = 0; i < particleCount; i++) {
       const p = document.createElement('i');
       p.style.left = `${Math.random() * 100}%`;
       p.style.top = `${Math.random() * 100}%`;
