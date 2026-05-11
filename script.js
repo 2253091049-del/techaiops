@@ -86,3 +86,18 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 });
+
+// JavaScript for animations and interactivity
+window.addEventListener('DOMContentLoaded', () => {
+    console.log('Website loaded successfully!');
+
+    // Add hover effects
+    document.querySelectorAll('.hover-effect').forEach(el => {
+        el.addEventListener('mouseover', () => {
+            el.classList.add('glow-effect');
+        });
+        el.addEventListener('mouseout', () => {
+            el.classList.remove('glow-effect');
+        });
+    });
+});

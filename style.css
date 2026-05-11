@@ -146,6 +146,33 @@ body{
   100%{background-position:0% 50%}
 }
 
+/* Custom styles for additional effects */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient-animation 3s ease infinite;
+}
+
+@keyframes gradient-animation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Add glowing effects */
+.glow-effect {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
 /* Sections */
 .section{padding:3.2rem 0}
 .section-header h2{margin:0 0 .4rem}
