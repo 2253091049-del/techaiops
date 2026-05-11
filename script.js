@@ -105,16 +105,31 @@ document.addEventListener('DOMContentLoaded', function () {
   // Service card 3D hover effect
   if (!prefersReducedMotion) {
     document.querySelectorAll('[data-tilt]').forEach((card) => {
+      let tiltFrame = null;
+      let tiltX = 0;
+      let tiltY = 0;
+
+      const applyTilt = () => {
+        const rotateX = ((tiltY) - 0.5) * -8;
+        const rotateY = ((tiltX) - 0.5) * 8;
+        card.style.transform = `translateY(-8px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
+        tiltFrame = null;
+      };
+
       card.addEventListener('mousemove', (event) => {
         const rect = card.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
-        const rotateX = ((y / rect.height) - 0.5) * -8;
-        const rotateY = ((x / rect.width) - 0.5) * 8;
-        card.style.transform = `translateY(-8px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
+        tiltX = (event.clientX - rect.left) / rect.width;
+        tiltY = (event.clientY - rect.top) / rect.height;
+        if (!tiltFrame) {
+          tiltFrame = requestAnimationFrame(applyTilt);
+        }
       });
 
       card.addEventListener('mouseleave', () => {
+        if (tiltFrame) {
+          cancelAnimationFrame(tiltFrame);
+          tiltFrame = null;
+        }
         card.style.transform = '';
       });
     });
@@ -147,7 +162,8 @@ document.addEventListener('DOMContentLoaded', function () {
   // Hero particles
   const particlesRoot = document.querySelector('.hero-particles');
   if (particlesRoot && !prefersReducedMotion) {
-    for (let i = 0; i < 36; i += 1) {
+    const particleCount = window.matchMedia('(max-width: 768px)').matches ? 16 : 24;
+    for (let i = 0; i < particleCount; i += 1) {
       const p = document.createElement('i');
       p.style.left = `${Math.random() * 100}%`;
       p.style.top = `${Math.random() * 100}%`;

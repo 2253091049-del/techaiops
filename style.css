@@ -350,11 +350,17 @@ a{color:inherit}
 }
 
 @media (prefers-reduced-motion: reduce){
-  *,*::before,*::after{
-    animation-duration:0.01ms !important;
-    animation-iteration-count:1 !important;
-    transition-duration:0.01ms !important;
-    scroll-behavior:auto !important;
+  html,body{scroll-behavior:auto}
+  .btn,.btn-primary,.btn-outline,.btn-ghost,.service-card,.reveal{
+    transition:none;
+  }
+  .btn-primary,
+  .gradient-text,
+  .animated-gradient,
+  .floating-shape,
+  .hero-particles i,
+  .bars span{
+    animation:none;
   }
   .reveal{opacity:1;transform:none}
 }
