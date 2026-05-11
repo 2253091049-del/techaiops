@@ -19,7 +19,7 @@
   <meta name="twitter:description" content="AI-powered automation, websites, hosting, billing software & digital marketing to help your business scale." />
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
   <script type="application/ld+json">
   {
@@ -49,7 +49,7 @@
         <span class="brand-text">Tech AI Ops</span>
       </a>
 
-      <nav id="nav" class="nav">
+      <nav id="nav" class="nav" aria-hidden="true">
         <ul class="nav-list">
           <li><a href="#home">Home</a></li>
           <li><a href="#about">About</a></li>
@@ -73,9 +73,14 @@
   <main>
     <!-- HERO -->
     <section id="home" class="hero">
+      <div class="hero-particles" aria-hidden="true"></div>
+      <div class="hero-blur hero-blur-a" aria-hidden="true"></div>
+      <div class="hero-blur hero-blur-b" aria-hidden="true"></div>
+
       <div class="container hero-inner">
-        <div class="hero-content reveal">
-          <h1 class="hero-title">Smart Digital Solutions For Modern Businesses</h1>
+        <div class="hero-content reveal parallax" data-depth="16">
+          <p class="eyebrow">World-Class AI Startup Partner</p>
+          <h1 class="hero-title">Build <span class="gradient-text">Futuristic</span> Digital Experiences With Tech AI Ops</h1>
           <p class="hero-lead">Automate. Optimize. Outperform. We build AI-powered automation, modern websites, hosting, billing systems and results-driven digital marketing for growth-minded companies.</p>
           <div class="hero-ctas">
             <a class="btn btn-primary" href="#contact">Get Started</a>
@@ -88,8 +93,20 @@
           </ul>
         </div>
 
-        <div class="hero-art reveal">
+        <div class="hero-art reveal parallax" data-depth="24">
           <img src="assets/hero-illustration.svg" alt="AI and automation illustration" />
+          <div class="hero-dashboard glass">
+            <p>AI Command Dashboard</p>
+            <div class="dash-lines">
+              <span></span><span></span><span></span><span></span>
+            </div>
+            <div class="dash-metrics">
+              <div><strong class="counter" data-target="98" data-suffix="%">0</strong><small>Automation Accuracy</small></div>
+              <div><strong class="counter" data-target="42" data-suffix="%">0</strong><small>Lead Growth</small></div>
+            </div>
+          </div>
+          <div class="floating-shape shape-one" aria-hidden="true"></div>
+          <div class="floating-shape shape-two" aria-hidden="true"></div>
         </div>
       </div>
       <div class="animated-gradient" aria-hidden="true"></div>
@@ -98,7 +115,7 @@
     <!-- ABOUT -->
     <section id="about" class="section about">
       <div class="container section-inner">
-        <div class="section-header">
+        <div class="section-header reveal">
           <h2>About Tech AI Ops</h2>
           <p>We help businesses grow using AI-powered solutions and business automation. From website creation, domain & hosting to billing software and full digital marketing — we deliver modern, measurable solutions built for scale.</p>
         </div>
@@ -124,38 +141,38 @@
     <!-- SERVICES -->
     <section id="services" class="section services">
       <div class="container section-inner">
-        <div class="section-header">
+        <div class="section-header reveal">
           <h2>Services</h2>
           <p>Comprehensive services to digitize, optimize, and grow your business.</p>
         </div>
 
         <div class="services-grid">
-          <div class="service-card glass reveal">
+          <div class="service-card glass reveal" data-tilt>
             <div class="icon">📣</div>
             <h3>Facebook Marketing</h3>
             <p>Targeted campaigns and creative strategies to grow reach and conversions.</p>
           </div>
-          <div class="service-card glass reveal">
+          <div class="service-card glass reveal" data-tilt>
             <div class="icon">🌐</div>
             <h3>Website Creation</h3>
             <p>Modern websites built for performance, UX and conversions.</p>
           </div>
-          <div class="service-card glass reveal">
+          <div class="service-card glass reveal" data-tilt>
             <div class="icon">🔗</div>
             <h3>Domain & Hosting</h3>
             <p>Domain registration, SSL, and fast hosting packages for businesses of all sizes.</p>
           </div>
-          <div class="service-card glass reveal">
+          <div class="service-card glass reveal" data-tilt>
             <div class="icon">💳</div>
             <h3>Billing Software</h3>
             <p>Automated billing, invoicing and payment integrations to streamline finance ops.</p>
           </div>
-          <div class="service-card glass reveal">
+          <div class="service-card glass reveal" data-tilt>
             <div class="icon">⚙️</div>
             <h3>Business Automation</h3>
             <p>Process automation to reduce errors, speed up workflows, and increase efficiency.</p>
           </div>
-          <div class="service-card glass reveal">
+          <div class="service-card glass reveal" data-tilt>
             <div class="icon">🤖</div>
             <h3>AI Solutions</h3>
             <p>Custom AI models and integrations that make systems smarter and more predictive.</p>
@@ -180,15 +197,15 @@
 
           <aside class="glass stats reveal">
             <div class="stat">
-              <h3>100+</h3>
+              <h3><span class="counter" data-target="100" data-suffix="+">0</span></h3>
               <p>Projects & engagements</p>
             </div>
             <div class="stat">
-              <h3>24/7</h3>
+              <h3><span class="counter" data-target="24" data-suffix="/7">0</span></h3>
               <p>Support & monitoring</p>
             </div>
             <div class="stat">
-              <h3>99.9%</h3>
+              <h3><span class="counter" data-target="99.9" data-decimals="1" data-suffix="%">0</span></h3>
               <p>Hosting uptime</p>
             </div>
           </aside>
@@ -199,14 +216,18 @@
     <!-- PORTFOLIO -->
     <section id="portfolio" class="section portfolio">
       <div class="container section-inner">
-        <div class="section-header">
+        <div class="section-header reveal">
           <h2>Portfolio Showcase</h2>
           <p>Selected work demonstrating websites, automation, and AI-driven projects.</p>
         </div>
 
         <div class="portfolio-grid">
           <figure class="portfolio-item glass reveal">
-            <img src="assets/hero-illustration.svg" alt="Project — Website and automation" />
+            <div class="mockup laptop-mockup">
+              <div class="mockup-screen">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
             <figcaption>
               <h4>Modern E‑commerce Site</h4>
               <p>Website + AI-driven product recommendations.</p>
@@ -214,7 +235,10 @@
           </figure>
 
           <figure class="portfolio-item glass reveal">
-            <img src="assets/hero-illustration.svg" alt="Project — Billing system" />
+            <div class="mockup analytics-mockup">
+              <div class="bars"><span></span><span></span><span></span><span></span></div>
+              <div class="line"></div>
+            </div>
             <figcaption>
               <h4>Billing & Invoicing System</h4>
               <p>Automated recurring billing and reports.</p>
@@ -222,7 +246,10 @@
           </figure>
 
           <figure class="portfolio-item glass reveal">
-            <img src="assets/hero-illustration.svg" alt="Project — Digital marketing" />
+            <div class="mockup ai-mockup">
+              <div class="orb"></div>
+              <div class="chip-grid"><span></span><span></span><span></span><span></span></div>
+            </div>
             <figcaption>
               <h4>Facebook Campaigns</h4>
               <p>High-ROI ad funnels with conversion tracking.</p>
@@ -235,7 +262,7 @@
     <!-- TESTIMONIALS -->
     <section id="testimonials" class="section testimonials">
       <div class="container section-inner">
-        <div class="section-header">
+        <div class="section-header reveal">
           <h2>What Clients Say</h2>
         </div>
 
@@ -264,7 +291,7 @@
     <!-- CONTACT -->
     <section id="contact" class="section contact">
       <div class="container section-inner">
-        <div class="section-header">
+        <div class="section-header reveal">
           <h2>Contact</h2>
           <p>Let's talk. Tell us about your project or schedule a consultation.</p>
         </div>
@@ -272,12 +299,13 @@
         <div class="contact-grid">
           <aside class="glass contact-card reveal">
             <h3>Contact Info</h3>
-            <p><strong>CEO & Founder:</strong> AJ MD RS TALHA</p>
+            <p><strong>Company:</strong> Tech AI Ops</p>
+            <p><strong>Founder:</strong> AJ MD RS TALHA</p>
             <p><strong>Phone:</strong> <a href="tel:+8801608033821">01608-033821</a></p>
             <p><strong>Email:</strong> <a href="mailto:techaiops1@gmail.com">techaiops1@gmail.com</a></p>
-            <p><strong>Facebook:</strong> <a href="https://www.facebook.com/share/1CPQ1iAS78/" target="_blank" rel="noopener">facebook.com/techaiops</a></p>
+            <p><strong>Website:</strong> <a href="http://www.techaiops.online/" target="_blank" rel="noopener">http://www.techaiops.online/</a></p>
+            <p><strong>Facebook:</strong> <a href="https://www.facebook.com/share/1CPQ1iAS78/" target="_blank" rel="noopener">https://www.facebook.com/share/1CPQ1iAS78/</a></p>
             <p><strong>WhatsApp:</strong> <a href="https://wa.me/8801608033821" target="_blank" rel="noopener">Chat on WhatsApp</a></p>
-            <p><strong>Website:</strong> <a href="http://www.techaiops.online/" target="_blank" rel="noopener">techaiops.online</a></p>
           </aside>
 
           <form class="glass contact-form reveal" id="contactForm" action="#" onsubmit="return false;" aria-label="Contact form">
@@ -321,8 +349,8 @@
           <a href="#contact">Contact</a>
         </nav>
         <div class="socials">
-          <a aria-label="Facebook" href="https://www.facebook.com/share/1CPQ1iAS78/" target="_blank" rel="noopener">Facebook</a>
-          <a aria-label="WhatsApp" href="https://wa.me/8801608033821" target="_blank" rel="noopener">WhatsApp</a>
+          <a aria-label="Facebook" href="https://www.facebook.com/share/1CPQ1iAS78/" target="_blank" rel="noopener">◉ Facebook</a>
+          <a aria-label="WhatsApp" href="https://wa.me/8801608033821" target="_blank" rel="noopener">◉ WhatsApp</a>
         </div>
       </div>
     </div>

@@ -1,88 +1,161 @@
-// Basic interactivity: mobile menu, smooth scroll offset, scroll reveal, testimonials slider
-
 document.addEventListener('DOMContentLoaded', function () {
-  // Year in footer
+  // Footer year
   document.getElementById('year').textContent = new Date().getFullYear();
 
   // Mobile nav toggle
   const navToggle = document.getElementById('navToggle');
   const nav = document.getElementById('nav');
-  navToggle.addEventListener('click', function () {
-    const expanded = this.getAttribute('aria-expanded') === 'true';
-    this.setAttribute('aria-expanded', String(!expanded));
-    // toggle visible attribute for CSS
-    if (nav.getAttribute('aria-hidden') === 'false') {
-      nav.setAttribute('aria-hidden', 'true');
-    } else {
-      nav.setAttribute('aria-hidden', 'false');
-    }
-  });
+  if (navToggle && nav) {
+    navToggle.addEventListener('click', function () {
+      const expanded = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', String(!expanded));
+      nav.setAttribute('aria-hidden', expanded ? 'true' : 'false');
+    });
 
-  // Close mobile menu on link click
-  document.querySelectorAll('.nav-list a').forEach(a => a.addEventListener('click', () => {
-    nav.setAttribute('aria-hidden', 'true');
-    navToggle.setAttribute('aria-expanded', 'false');
-  }));
+    document.querySelectorAll('.nav-list a').forEach((link) => {
+      link.addEventListener('click', () => {
+        nav.setAttribute('aria-hidden', 'true');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
 
-  // Scroll reveal using IntersectionObserver
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('show');
-        observer.unobserve(e.target);
+  // Scroll reveal animation
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
+        observer.unobserve(entry.target);
       }
     });
-  }, {rootMargin: "0px 0px -8% 0px", threshold: 0.05});
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
 
-  // Smooth scroll with offset for sticky header
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  // Animated counters
+  const counterObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = Number(el.dataset.target || 0);
+      const decimals = Number(el.dataset.decimals || 0);
+      const suffix = el.dataset.suffix || '';
+      const duration = 1200;
+      const startTime = performance.now();
+
+      const step = (now) => {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const value = target * progress;
+        el.textContent = `${value.toFixed(decimals)}${suffix}`;
+        if (progress < 1) requestAnimationFrame(step);
+      };
+
+      requestAnimationFrame(step);
+      observer.unobserve(el);
+    });
+  }, { threshold: 0.35 });
+
+  document.querySelectorAll('.counter').forEach((counter) => counterObserver.observe(counter));
+
+  // Smooth anchor scrolling with sticky header offset
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener('click', function (e) {
       const targetId = this.getAttribute('href').slice(1);
+      if (!targetId) return;
       const target = document.getElementById(targetId);
-      if (target) {
-        e.preventDefault();
-        const headerOffset = document.querySelector('.site-header').offsetHeight + 12;
-        const elementPosition = target.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-      }
+      if (!target) return;
+      e.preventDefault();
+      const headerOffset = document.querySelector('.site-header').offsetHeight + 10;
+      const offsetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
     });
   });
 
-  // Simple testimonials slider
+  // Testimonials slider
   const slides = Array.from(document.querySelectorAll('.testimonial'));
+  const prevBtn = document.getElementById('prevTest');
+  const nextBtn = document.getElementById('nextTest');
   let current = 0;
-  const showSlide = (idx) => {
-    slides.forEach((s,i) => s.classList.toggle('active', i === idx));
+
+  const showSlide = (index) => {
+    slides.forEach((slide, idx) => {
+      slide.classList.toggle('active', idx === index);
+    });
   };
-  document.getElementById('prevTest').addEventListener('click', () => {
-    current = (current - 1 + slides.length) % slides.length;
-    showSlide(current);
-  });
-  document.getElementById('nextTest').addEventListener('click', () => {
-    current = (current + 1) % slides.length;
-    showSlide(current);
+
+  if (slides.length && prevBtn && nextBtn) {
+    prevBtn.addEventListener('click', () => {
+      current = (current - 1 + slides.length) % slides.length;
+      showSlide(current);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      current = (current + 1) % slides.length;
+      showSlide(current);
+    });
+
+    setInterval(() => {
+      current = (current + 1) % slides.length;
+      showSlide(current);
+    }, 7000);
+  }
+
+  // Service card 3D hover effect
+  document.querySelectorAll('[data-tilt]').forEach((card) => {
+    card.addEventListener('mousemove', (event) => {
+      const rect = card.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      const rotateX = ((y / rect.height) - 0.5) * -8;
+      const rotateY = ((x / rect.width) - 0.5) * 8;
+      card.style.transform = `translateY(-8px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
   });
 
-  // Auto-advance testimonials every 7s
-  setInterval(() => {
-    current = (current + 1) % slides.length;
-    showSlide(current);
-  }, 7000);
+  // Hero parallax effect
+  const parallaxElements = document.querySelectorAll('.parallax');
+  window.addEventListener('mousemove', (event) => {
+    const x = (event.clientX / window.innerWidth) - 0.5;
+    const y = (event.clientY / window.innerHeight) - 0.5;
+    parallaxElements.forEach((el) => {
+      const depth = Number(el.dataset.depth || 12);
+      el.style.transform = `translate3d(${(-x * depth).toFixed(1)}px, ${(-y * depth).toFixed(1)}px, 0)`;
+    });
+  });
 
-  // lightweight form stub
+  // Hero particles
+  const particlesRoot = document.querySelector('.hero-particles');
+  if (particlesRoot) {
+    for (let i = 0; i < 36; i += 1) {
+      const p = document.createElement('i');
+      p.style.left = `${Math.random() * 100}%`;
+      p.style.top = `${Math.random() * 100}%`;
+      p.style.animationDuration = `${6 + Math.random() * 10}s`;
+      p.style.animationDelay = `${Math.random() * 4}s`;
+      p.style.opacity = `${0.25 + Math.random() * 0.65}`;
+      particlesRoot.appendChild(p);
+    }
+  }
+
+  // Form demo behavior
   const contactForm = document.getElementById('contactForm');
-  contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const sendBtn = document.getElementById('sendBtn');
-    sendBtn.textContent = 'Sending...';
-    setTimeout(() => {
-      sendBtn.textContent = 'Send Message';
-      alert('This is a static demo. Connect your form to an email service or backend to receive messages.');
-      contactForm.reset();
-    }, 900);
-  });
-
+  if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const sendBtn = document.getElementById('sendBtn');
+      if (!sendBtn) return;
+      sendBtn.textContent = 'Sending...';
+      sendBtn.disabled = true;
+      setTimeout(() => {
+        sendBtn.textContent = 'Send Message';
+        sendBtn.disabled = false;
+        alert('This is a static demo. Connect your form to an email service or backend to receive messages.');
+        contactForm.reset();
+      }, 900);
+    });
+  }
 });
