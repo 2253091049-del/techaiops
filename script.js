@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   // Footer year
   document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -101,35 +103,50 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Service card 3D hover effect
-  document.querySelectorAll('[data-tilt]').forEach((card) => {
-    card.addEventListener('mousemove', (event) => {
-      const rect = card.getBoundingClientRect();
-      const x = event.clientX - rect.left;
-      const y = event.clientY - rect.top;
-      const rotateX = ((y / rect.height) - 0.5) * -8;
-      const rotateY = ((x / rect.width) - 0.5) * 8;
-      card.style.transform = `translateY(-8px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
-    });
+  if (!prefersReducedMotion) {
+    document.querySelectorAll('[data-tilt]').forEach((card) => {
+      card.addEventListener('mousemove', (event) => {
+        const rect = card.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        const rotateX = ((y / rect.height) - 0.5) * -8;
+        const rotateY = ((x / rect.width) - 0.5) * 8;
+        card.style.transform = `translateY(-8px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
+      });
 
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
     });
-  });
+  }
 
   // Hero parallax effect
   const parallaxElements = document.querySelectorAll('.parallax');
-  window.addEventListener('mousemove', (event) => {
-    const x = (event.clientX / window.innerWidth) - 0.5;
-    const y = (event.clientY / window.innerHeight) - 0.5;
-    parallaxElements.forEach((el) => {
-      const depth = Number(el.dataset.depth || 12);
-      el.style.transform = `translate3d(${(-x * depth).toFixed(1)}px, ${(-y * depth).toFixed(1)}px, 0)`;
+  if (!prefersReducedMotion && parallaxElements.length) {
+    let latestX = 0;
+    let latestY = 0;
+    let rafId = null;
+
+    const applyParallax = () => {
+      parallaxElements.forEach((el) => {
+        const depth = Number(el.dataset.depth || 12);
+        el.style.transform = `translate3d(${(-latestX * depth).toFixed(1)}px, ${(-latestY * depth).toFixed(1)}px, 0)`;
+      });
+      rafId = null;
+    };
+
+    window.addEventListener('mousemove', (event) => {
+      latestX = (event.clientX / window.innerWidth) - 0.5;
+      latestY = (event.clientY / window.innerHeight) - 0.5;
+      if (!rafId) {
+        rafId = requestAnimationFrame(applyParallax);
+      }
     });
-  });
+  }
 
   // Hero particles
   const particlesRoot = document.querySelector('.hero-particles');
-  if (particlesRoot) {
+  if (particlesRoot && !prefersReducedMotion) {
     for (let i = 0; i < 36; i += 1) {
       const p = document.createElement('i');
       p.style.left = `${Math.random() * 100}%`;

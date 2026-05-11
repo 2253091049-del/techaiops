@@ -111,9 +111,8 @@ a{color:inherit}
   margin:0 0 .95rem;
   padding:.42rem .78rem;
   border-radius:999px;
-  font-size:.8rem;
+  font-size:.86rem;
   letter-spacing:.08em;
-  text-transform:uppercase;
   color:#cffafe;
   border:1px solid rgba(34,211,238,.45);
   background:rgba(6,182,212,.14);
@@ -348,4 +347,14 @@ a{color:inherit}
   .hero-title{font-size:clamp(2rem,11vw,2.7rem)}
   .hero-dashboard{position:relative;right:auto;bottom:auto;transform:none;margin-top:1rem;width:100%}
   .footer-inner,.footer-right{flex-direction:column;align-items:flex-start}
+}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:0.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:0.01ms !important;
+    scroll-behavior:auto !important;
+  }
+  .reveal{opacity:1;transform:none}
 }
