@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const tabletBreakpoint = 860;
+  const counterDurationMs = 1200;
+  const tiltIntensity = 8;
 
   // Footer year
   document.getElementById('year').textContent = new Date().getFullYear();
@@ -43,11 +45,10 @@ document.addEventListener('DOMContentLoaded', function () {
       const target = Number(el.dataset.target || 0);
       const decimals = Number(el.dataset.decimals || 0);
       const suffix = el.dataset.suffix || '';
-      const duration = 1200;
       const startTime = performance.now();
 
       const step = (now) => {
-        const progress = Math.min((now - startTime) / duration, 1);
+        const progress = Math.min((now - startTime) / counterDurationMs, 1);
         const value = target * progress;
         el.textContent = `${value.toFixed(decimals)}${suffix}`;
         if (progress < 1) requestAnimationFrame(step);
@@ -111,8 +112,8 @@ document.addEventListener('DOMContentLoaded', function () {
       let tiltY = 0;
 
       const applyTilt = () => {
-        const rotateX = ((tiltY) - 0.5) * -8;
-        const rotateY = ((tiltX) - 0.5) * 8;
+        const rotateX = (tiltY - 0.5) * -tiltIntensity;
+        const rotateY = (tiltX - 0.5) * tiltIntensity;
         card.style.transform = `translateY(-8px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
         tiltFrame = null;
       };

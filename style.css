@@ -111,6 +111,7 @@ a{color:inherit}
 .hero-inner{display:grid;grid-template-columns:1.08fr .92fr;gap:2.2rem;align-items:center}
 .hero-content{position:relative;z-index:3}
 .eyebrow{
+  width:fit-content;
   width:max-content;
   margin:0 0 .95rem;
   padding:.42rem .78rem;
