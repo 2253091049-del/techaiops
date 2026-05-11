@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const tabletBreakpoint = 860;
 
   // Footer year
   document.getElementById('year').textContent = new Date().getFullYear();
@@ -162,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Hero particles
   const particlesRoot = document.querySelector('.hero-particles');
   if (particlesRoot && !prefersReducedMotion) {
-    const particleCount = window.matchMedia('(max-width: 768px)').matches ? 16 : 24;
+    const particleCount = window.matchMedia(`(max-width: ${tabletBreakpoint}px)`).matches ? 16 : 24;
     for (let i = 0; i < particleCount; i += 1) {
       const p = document.createElement('i');
       p.style.left = `${Math.random() * 100}%`;

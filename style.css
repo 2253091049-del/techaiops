@@ -11,6 +11,10 @@
   --purple:#8b5cf6;
   --pink:#ec4899;
   --orange:#fb923c;
+  --bg-button-outline:rgba(10,16,37,.55);
+  --text-button-ghost:#bce6ff;
+  --bg-button-ghost:rgba(5,9,22,.35);
+  --bg-nav-mobile:rgba(7, 13, 30, .95);
   --radius:18px;
   --container:1180px;
   --shadow:0 22px 46px rgba(6, 10, 30, 0.45);
@@ -86,12 +90,12 @@ a{color:inherit}
 .btn-outline{
   color:#fff;
   border:1px solid rgba(147,197,253,.4);
-  background:rgba(10,16,37,.55);
+  background:var(--bg-button-outline);
 }
 .btn-ghost{
-  color:#bce6ff;
+  color:var(--text-button-ghost);
   border:1px solid rgba(34,211,238,.3);
-  background:rgba(5,9,22,.35);
+  background:var(--bg-button-ghost);
 }
 
 .nav-toggle{display:none;background:none;border:1px solid rgba(147,197,253,.28);padding:.38rem .42rem;border-radius:10px}
@@ -331,7 +335,7 @@ a{color:inherit}
     flex-direction:column;
     align-items:stretch;
     border-radius:14px;
-    background:rgba(7, 13, 30, .95);
+    background:var(--bg-nav-mobile);
     border:1px solid rgba(147,197,253,.24);
     padding:.7rem;
     box-shadow:0 14px 28px rgba(6,10,24,.45);
